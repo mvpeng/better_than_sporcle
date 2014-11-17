@@ -1,6 +1,12 @@
 package better_sporcle;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +39,25 @@ public class CreateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		Connection con = (Connection) getServletContext().getAttribute("Connection");
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeQuery("USE " + MyDBInfo.MYSQL_DATABASE_NAME);
+			String user = request.getParameter("username");
+			String pw = Cracker.generateHash(request.getParameter("pwd"));
+			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE username = \"" + user + "\"");
+			if (!rs.first()) {
+				String command = "INSERT INTO users VALUES (\"" + user + "\",\"" + pw + "\")";
+				stmt.execute(command);
+				RequestDispatcher rd = request.getRequestDispatcher("UserHomePage.jsp");
+				rd.forward(request, response);
+			} else {
+				RequestDispatcher rd = request.getRequestDispatcher("AccountExists.jsp");
+				rd.forward(request, response);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
