@@ -52,7 +52,7 @@ public class CreateServlet extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("UserHomePage.jsp");
 				rd.forward(request, response);
 			} else {
-				RequestDispatcher rd = request.getRequestDispatcher("AccountExists.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("CreateAccountFailed.jsp");
 				rd.forward(request, response);
 			}
 		} catch (SQLException e) {

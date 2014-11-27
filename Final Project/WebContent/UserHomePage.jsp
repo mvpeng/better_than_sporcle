@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><%="Welcome, " + request.getParameter("username") %></title>
+<title>Quizzes Home Page</title>
 </head>
 <body>
-<h1><%="Welcome, " + request.getParameter("username") %></h1>
+<p>You are logged in as <a href="www.google.com"><%=request.getParameter("username")%></a>.</p>
+<center><h1>Quizzes Home</h1></center>
 </body>
 </html>
