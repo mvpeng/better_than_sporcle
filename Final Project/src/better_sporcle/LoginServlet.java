@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 			String pw = Cracker.generateHash(request.getParameter("pwd"));
 			ResultSet rs = stmt.executeQuery("SELECT password FROM users WHERE username = \"" + user + "\"");
 			if (!rs.first()) {
-				RequestDispatcher rd = request.getRequestDispatcher("Retry.html");
+				RequestDispatcher rd = request.getRequestDispatcher("RetryLogin.html");
 				rd.forward(request, response);
 			} else {
 				rs.first();
