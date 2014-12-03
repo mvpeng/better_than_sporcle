@@ -49,6 +49,7 @@ public class CreateServlet extends HttpServlet {
 			if (!rs.first()) {
 				String command = "INSERT INTO users VALUES (\"" + user + "\",\"" + pw + "\")";
 				stmt.execute(command);
+				request.getSession().setAttribute("username", user);
 				RequestDispatcher rd = request.getRequestDispatcher("UserHomePage.jsp");
 				rd.forward(request, response);
 			} else {
