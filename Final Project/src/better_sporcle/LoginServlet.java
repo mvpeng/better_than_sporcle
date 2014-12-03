@@ -49,6 +49,7 @@ public class LoginServlet extends HttpServlet {
 			} else {
 				rs.first();
 				if (pw.equals(rs.getString("password"))) {
+					request.getSession().setAttribute("username", user);
 					RequestDispatcher rd = request.getRequestDispatcher("UserHomePage.jsp");
 					rd.forward(request,response);
 				} else {

@@ -7,7 +7,7 @@
 <title>Quizzes Home Page</title>
 </head>
 <body>
-<p>You are logged in as <a href="www.google.com"><%=request.getParameter("username")%></a>.</p>
+<p>You are logged in as <a href="UserHomePage.jsp"><%=session.getAttribute("username")%></a>.</p>
 <center><h1>Quizzes Home</h1></center>
 </body>
 </html>
