@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 				rs.first();
 				if (pw.equals(rs.getString("password"))) {
 					request.getSession().setAttribute("username", user);
-					RequestDispatcher rd = request.getRequestDispatcher("UserHomePage.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("MyHomePage.jsp");
 					rd.forward(request,response);
 				} else {
 					RequestDispatcher rd = request.getRequestDispatcher("RetryLogin.html");

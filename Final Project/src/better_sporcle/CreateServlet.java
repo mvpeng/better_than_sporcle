@@ -50,7 +50,7 @@ public class CreateServlet extends HttpServlet {
 				String command = "INSERT INTO users VALUES (\"" + user + "\",\"" + pw + "\")";
 				stmt.execute(command);
 				request.getSession().setAttribute("username", user);
-				RequestDispatcher rd = request.getRequestDispatcher("UserHomePage.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("MyHomePage.jsp");
 				rd.forward(request, response);
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("CreateAccountFailed.jsp");

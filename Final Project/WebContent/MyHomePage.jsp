@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Quizzes Home Page</title>
+<title>My Home Page</title>
 <style type="text/css">
 	#main {
 		width: 900px;
@@ -33,14 +33,14 @@
 </head>
 <body>
 <div id="main">
-<p>You are logged in as <a href="UserHomePage.jsp"><%=session.getAttribute("username")%></a>.</p>
-<center><h1>Quizzes Home</h1></center>
+<p>You are logged in as <a href="MyHomePage.jsp"><%=session.getAttribute("username")%></a>.</p>
+<center><h1>My Home</h1></center>
 <ul class="vertical_menu">
-	<li><a href="UserHomePage.jsp">Home</a></li>
-	<li><a href="UserHomePage.jsp">My History</a></li>
-	<li><a href="UserHomePage.jsp">My Achievements</a></li>
-	<li><a href="UserHomePage.jsp">My Messages</a></li>
-	<li><a href="UserHomePage.jsp">My Friends</a></li>
+	<li><a href="MyHomePage.jsp">Home</a></li>
+	<li><a href="MyHomePage.jsp">My History</a></li>
+	<li><a href="MyHomePage.jsp">My Achievements</a></li>
+	<li><a href="MyHomePage.jsp">My Messages</a></li>
+	<li><a href="MyHomePage.jsp">My Friends</a></li>
 	<li>
 		<form action="SearchServlet" method="post">
 			<input type="text" name="SearchTerm" size=20px>

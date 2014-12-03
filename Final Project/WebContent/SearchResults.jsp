@@ -41,23 +41,33 @@
 		text-decoration: underline;
 		text-align: center;
 		font-size: 14pt;
+		color: black;
 	}
 	.search_results p {
 		text-align: center;
+		color: black;
+	}
+	.search_results p a {
+		text-decoration: none;
+		color: black;
+	}
+	.search_results p a:hover {
+		text-decoration: underline;
+		color: black;
 	}
 </style>
 </head>
 <body>
 <div id="main">
-<p>You are logged in as <a href="UserHomePage.jsp"><%=session.getAttribute("username")%></a>.</p>
+<p>You are logged in as <a href="MyHomePage.jsp"><%=session.getAttribute("username")%></a>.</p>
 <center><h1>Search Results</h1></center>
 <center><p>Your search query is: "<%= session.getAttribute("RecentSearchTerm") %>"</p></center>
 <ul class="vertical_menu">
-	<li><a href="UserHomePage.jsp">Home</a></li>
-	<li><a href="UserHomePage.jsp">My History</a></li>
-	<li><a href="UserHomePage.jsp">My Achievements</a></li>
-	<li><a href="UserHomePage.jsp">My Messages</a></li>
-	<li><a href="UserHomePage.jsp">My Friends</a></li>
+	<li><a href="MyHomePage.jsp">Home</a></li>
+	<li><a href="MyHomePage.jsp">My History</a></li>
+	<li><a href="MyHomePage.jsp">My Achievements</a></li>
+	<li><a href="MyHomePage.jsp">My Messages</a></li>
+	<li><a href="MyHomePage.jsp">My Friends</a></li>
 	<li>
 		<form action="SearchServlet" method="post">
 			<input type="text" name="SearchTerm" size=20px>
@@ -76,14 +86,13 @@
 			out.println("<p>No users matched your search terms :(</p>");
 		} else {
 			rs.beforeFirst();
-			out.println("<ul>");
 			while (rs.next()) {
-				out.println("<li>" + rs.getString("username") + "</li>");
+				out.println("<p><a href=\"User.jsp?id=" + rs.getString("username") +"\">" + rs.getString("username") + "</p>");
 			}
-			out.println("</ul>");
 		}
 	%>
 </div>
+
 <div class="search_results">
 	<h1>Quiz Matches</h1>
 	<p>Coming Soon!</p>
