@@ -10,6 +10,6 @@ CREATE TABLE friends (
 );
 
 
--- note: passwords are our lastnames encrypted by Cracker
+-- note: 0 status means request is pending, 1 status means confirmed
 INSERT INTO friends VALUES
 	("Brianna","Tyler",1);
