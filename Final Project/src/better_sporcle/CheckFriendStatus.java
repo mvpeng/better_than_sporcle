@@ -17,7 +17,7 @@ public class CheckFriendStatus {
 			rs.first();
 			int status = rs.getInt("status");
 			if (status == 1) {
-				return displayAlreadyFriends();
+				return displayAlreadyFriends(them);
 			} else { //status is 0
 				if (rs.getString("username_from").equals(me)) {
 					return displayRequestPending();
@@ -39,16 +39,13 @@ public class CheckFriendStatus {
 		return out;
 	}
 	
-	public static String displayAlreadyFriends() {
+	public static String displayAlreadyFriends(String them) {
 		String out = "<p>You are friends! :) </p>";
-		return out;
+		String delete = "<form action=\"DeleteFriendRequestServlet\" method=\"get\"><input type=\"hidden\" name=\"them\" value=" +them+"><input type=\"submit\" value=\"Remove from Friends?\"></form>";
+		return out+delete;
 	}
 	
 	public static String displayFriendButton(String them) {
-//		<form action=\"SendFriendRequestServlet\" method=\"post\">
-//		<input type=\"hidden\" name=\"them\" value=them>
-//		<input type=\"submit\" value=\"Send Friend Request\">
-//		</form>
 		String out = "<form action=\"SendFriendRequestServlet\" method=\"post\"><input type=\"hidden\" name=\"them\" value=" +them+"><input type=\"submit\" value=\"Send Friend Request\"></form>";
 		return out;
 	}

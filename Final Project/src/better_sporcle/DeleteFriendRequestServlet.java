@@ -31,7 +31,21 @@ public class DeleteFriendRequestServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		Connection con = (Connection) getServletContext().getAttribute("Connection");
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeQuery("USE " + MyDBInfo.MYSQL_DATABASE_NAME);
+			String me = "\"" + (String) request.getSession().getAttribute("username") + "\"";
+			String them = "\"" + request.getParameter("them") + "\"";
+			String cond1 = "(username_from=" + me +" OR username_to=" + me + ")";
+			String cond2 = "(username_from=" + them +" OR username_to=" + them + ")";
+			stmt.executeUpdate("DELETE FROM friends WHERE " + cond1 + " AND " + cond2);
+			RequestDispatcher rd = request.getRequestDispatcher("User.jsp?id="+request.getParameter("them"));
+			rd.forward(request, response);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
