@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Search Results</title>
+<title>Reading Note</title>
 <style type="text/css">
 	#main {
 		width: 900px;
@@ -31,37 +31,13 @@
 	.vertical_menu li a:hover {
 	  	text-decoration: underline;
 	}
-	.search_results {
-		float: left;
-		width: 300px;
-		margin: 5px;
-	  	padding: 5px;
-	}
-	.search_results h1 {
-		text-decoration: underline;
-		text-align: center;
-		font-size: 14pt;
-		color: black;
-	}
-	.search_results p {
-		text-align: center;
-		color: black;
-	}
-	.search_results p a {
-		text-decoration: none;
-		color: black;
-	}
-	.search_results p a:hover {
-		text-decoration: underline;
-		color: black;
-	}
 </style>
 </head>
 <body>
 <div id="main">
 <p>You are logged in as <a href="MyHomePage.jsp"><%=session.getAttribute("username")%></a>.</p>
-<center><h1>Search Results</h1></center>
-<center><p>Your search query is: "<%= session.getAttribute("RecentSearchTerm") %>"</p></center>
+<center><h1>Read Note</h1></center>
+<center><a href="Mailbox.jsp">Return to Messages</a></center>
 <ul class="vertical_menu">
 	<li><a href="MyHomePage.jsp">Home</a></li>
 	<li><a href="MyHomePage.jsp">My History</a></li>
@@ -75,28 +51,18 @@
 		</form>
 	</li>
 </ul>
-<div class="search_results">
-	<h1>User Matches</h1>
-	<%
+<p>Reading note from <a href=<%= "\"User.jsp?id=" + request.getParameter("from") + "\"" %>><%=request.getParameter("from") %></a>: </p>
+<p></p>
+<p>
+<%
 		Connection con = (Connection) this.getServletContext().getAttribute("Connection");
 		Statement stmt = con.createStatement();
 		stmt.executeQuery("USE " + MyDBInfo.MYSQL_DATABASE_NAME);
-		ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE username like \"%" + request.getSession().getAttribute("RecentSearchTerm") + "%\"");
-		if (!rs.isBeforeFirst()) {
-			out.println("<p>No users matched your search terms :(</p>");
-		} else {
-			rs.beforeFirst();
-			while (rs.next()) {
-				out.println("<p><a href=\"User.jsp?id=" + rs.getString("username") +"\">" + rs.getString("username") + "</p>");
-			}
-		}
+		ResultSet rs = stmt.executeQuery("SELECT * FROM messages WHERE username_to=\"" +  session.getAttribute("username") + "\" AND username_from=\"" + request.getParameter("from") + "\" AND time_sent=\"" + request.getParameter("dt") + "\"");
+		rs.first();
+		out.print(rs.getString("message_text"));
 	%>
-</div>
-
-<div class="search_results">
-	<h1>Quiz Matches</h1>
-	<p>Coming Soon!</p>
-</div>
+</p>
 </div>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>My Home Page</title>
+<title>Message Sent</title>
 <style type="text/css">
 	#main {
 		width: 900px;
@@ -34,7 +34,7 @@
 <body>
 <div id="main">
 <p>You are logged in as <a href="MyHomePage.jsp"><%=session.getAttribute("username")%></a>.</p>
-<center><h1>My Home</h1></center>
+<center><h1>Your Message Has Been Sent</h1></center>
 <ul class="vertical_menu">
 	<li><a href="MyHomePage.jsp">Home</a></li>
 	<li><a href="MyHomePage.jsp">My History</a></li>
@@ -48,6 +48,7 @@
 		</form>
 	</li>
 </ul>
+<p>A message has successfully been sent to <a href=<%= "\"User.jsp?id=" + request.getParameter("id") + "\"" %>><%=request.getParameter("id") %></a></p>
 </div>
 </body>
 </html>

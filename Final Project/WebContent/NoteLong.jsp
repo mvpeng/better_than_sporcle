@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>My Home Page</title>
+<title>Unable to Send Note</title>
 <style type="text/css">
 	#main {
 		width: 900px;
@@ -34,7 +34,7 @@
 <body>
 <div id="main">
 <p>You are logged in as <a href="MyHomePage.jsp"><%=session.getAttribute("username")%></a>.</p>
-<center><h1>My Home</h1></center>
+<center><h1>Your Note Was Not Sent</h1></center>
 <ul class="vertical_menu">
 	<li><a href="MyHomePage.jsp">Home</a></li>
 	<li><a href="MyHomePage.jsp">My History</a></li>
@@ -48,6 +48,9 @@
 		</form>
 	</li>
 </ul>
+<p>Your note to <a href=<%= "\"User.jsp?id=" + request.getParameter("id") + "\"" %>><%=request.getParameter("id") %></a> could not be sent because it exceeded the maximum length of characters (255).</p>
+<p></p>
+<p>To rewrite your note, click <a href=<%= "\"SendNote.jsp?id=" + request.getParameter("id") + "\"" %>>here!</a></p>
 </div>
 </body>
 </html>

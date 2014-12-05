@@ -38,11 +38,12 @@
 <p>You are logged in as <a href="MyHomePage.jsp"><%=session.getAttribute("username")%></a>.</p>
 <center><h1><%=request.getParameter("id") %>'s Page</h1></center>
 <center><%= CheckFriendStatus.displayFriendStatus((Connection) this.getServletContext().getAttribute("Connection"), (String) session.getAttribute("username"), request.getParameter("id"))%></center>
+<center><a href=<%out.println("\"SendMessage.jsp?id=" + request.getParameter("id") + "\""); %>>Send A Message</a></center>
 <ul class="vertical_menu">
 	<li><a href="MyHomePage.jsp">Home</a></li>
 	<li><a href="MyHomePage.jsp">My History</a></li>
 	<li><a href="MyHomePage.jsp">My Achievements</a></li>
-	<li><a href="MyHomePage.jsp">My Messages</a></li>
+	<li><a href="Mailbox.jsp">My Messages</a></li>
 	<li><a href="MyHomePage.jsp">My Friends</a></li>
 	<li>
 		<form action="SearchServlet" method="post">

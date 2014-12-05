@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,16 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SendFriendRequestServlet
+ * Servlet implementation class SendNoteServlet
  */
-@WebServlet("/SendFriendRequestServlet")
-public class SendFriendRequestServlet extends HttpServlet {
+@WebServlet("/SendNoteServlet")
+public class SendNoteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SendFriendRequestServlet() {
+    public SendNoteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,13 +45,19 @@ public class SendFriendRequestServlet extends HttpServlet {
 			stmt.executeQuery("USE " + MyDBInfo.MYSQL_DATABASE_NAME);
 			String me = "\"" + (String) request.getSession().getAttribute("username") + "\"";
 			String them = "\"" + request.getParameter("them") + "\"";
-			stmt.executeUpdate("INSERT INTO friends VALUES (" + me + "," + them + "," + 0 + ")");
-			stmt.executeUpdate("INSERT INTO messages (username_to,username_from,message_type,message_text) VALUES (" + them + "," + me + ",\"Friend Request\",\"request_sent\")");
-			RequestDispatcher rd = request.getRequestDispatcher("User.jsp?id="+request.getParameter("them"));
-			rd.forward(request, response);
+			String message = "\"" + request.getParameter("message") + "\"";
+			if (message.length() >= 255) {
+				RequestDispatcher rd = request.getRequestDispatcher("NoteLong.jsp?id="+request.getParameter("them"));
+				rd.forward(request, response);
+			} else {
+				stmt.executeUpdate("INSERT INTO messages (username_to,username_from,message_type,message_text) VALUES (" + them + "," + me + ",\"Note\"," + message +")");
+				RequestDispatcher rd = request.getRequestDispatcher("User.jsp?id="+request.getParameter("them"));
+				rd.forward(request, response);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 }

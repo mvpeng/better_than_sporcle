@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>My Home Page</title>
+<title>Composing Note</title>
 <style type="text/css">
 	#main {
 		width: 900px;
@@ -34,7 +34,7 @@
 <body>
 <div id="main">
 <p>You are logged in as <a href="MyHomePage.jsp"><%=session.getAttribute("username")%></a>.</p>
-<center><h1>My Home</h1></center>
+<center><h1>Composing Note</h1></center>
 <ul class="vertical_menu">
 	<li><a href="MyHomePage.jsp">Home</a></li>
 	<li><a href="MyHomePage.jsp">My History</a></li>
@@ -48,6 +48,14 @@
 		</form>
 	</li>
 </ul>
+<p>Composing Note to <a href=<%= "\"User.jsp?id=" + request.getParameter("id") + "\"" %>><%=request.getParameter("id") %></a>:</p>
+<form action="SendNoteServlet" method="post">
+	<textarea rows="4" cols="45" name="message"></textarea>
+	<input type="hidden" name="them" value=<%="\"" + request.getParameter("id") + "\"" %>>
+	<p></p>
+	<p>Note: maximum character length is 255</p>
+	<input type="submit" value="Send">
+</form>
 </div>
 </body>
 </html>

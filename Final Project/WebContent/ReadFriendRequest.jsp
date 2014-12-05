@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>My Home Page</title>
+<title>Reading Friend Request</title>
 <style type="text/css">
 	#main {
 		width: 900px;
@@ -34,7 +34,8 @@
 <body>
 <div id="main">
 <p>You are logged in as <a href="MyHomePage.jsp"><%=session.getAttribute("username")%></a>.</p>
-<center><h1>My Home</h1></center>
+<center><h1>Read Friend Request</h1></center>
+<center><a href="Mailbox.jsp">Return to Messages</a></center>
 <ul class="vertical_menu">
 	<li><a href="MyHomePage.jsp">Home</a></li>
 	<li><a href="MyHomePage.jsp">My History</a></li>
@@ -48,6 +49,11 @@
 		</form>
 	</li>
 </ul>
+<p>Reading friend request from <a href=<%= "\"User.jsp?id=" + request.getParameter("id") + "\"" %>><%=request.getParameter("id") %></a>: </p>
+<p></p>
+<p>Hi <%=session.getAttribute("username")%>! I would like to become friends with you. To accept my request, please navigate to my page by clicking on my username (<a href=<%= "\"User.jsp?id=" + request.getParameter("id") + "\"" %>><%=request.getParameter("id") %></a>).</p>
+<p></p>
+<p>Thanks!</p>
 </div>
 </body>
 </html>

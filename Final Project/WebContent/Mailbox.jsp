@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Search Results</title>
+<title>My Mailbox</title>
 <style type="text/css">
 	#main {
 		width: 900px;
@@ -31,37 +31,24 @@
 	.vertical_menu li a:hover {
 	  	text-decoration: underline;
 	}
-	.search_results {
+	.inbox {
 		float: left;
-		width: 300px;
-		margin: 5px;
+		width: 400px;
+	  	border: 1px dotted #4F2F4F;
+	  	background-color: #B4EEB4;
+	  	margin: 5px;
 	  	padding: 5px;
 	}
-	.search_results h1 {
-		text-decoration: underline;
-		text-align: center;
-		font-size: 14pt;
-		color: black;
-	}
-	.search_results p {
-		text-align: center;
-		color: black;
-	}
-	.search_results p a {
-		text-decoration: none;
-		color: black;
-	}
-	.search_results p a:hover {
-		text-decoration: underline;
-		color: black;
+	.inbox li {
+		list-style: none;
+		margin: 5px;
 	}
 </style>
 </head>
 <body>
 <div id="main">
 <p>You are logged in as <a href="MyHomePage.jsp"><%=session.getAttribute("username")%></a>.</p>
-<center><h1>Search Results</h1></center>
-<center><p>Your search query is: "<%= session.getAttribute("RecentSearchTerm") %>"</p></center>
+<center><h1>My Mailbox</h1></center>
 <ul class="vertical_menu">
 	<li><a href="MyHomePage.jsp">Home</a></li>
 	<li><a href="MyHomePage.jsp">My History</a></li>
@@ -75,28 +62,30 @@
 		</form>
 	</li>
 </ul>
-<div class="search_results">
-	<h1>User Matches</h1>
+<ul class="inbox">
 	<%
 		Connection con = (Connection) this.getServletContext().getAttribute("Connection");
 		Statement stmt = con.createStatement();
 		stmt.executeQuery("USE " + MyDBInfo.MYSQL_DATABASE_NAME);
-		ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE username like \"%" + request.getSession().getAttribute("RecentSearchTerm") + "%\"");
+		ResultSet rs = stmt.executeQuery("SELECT * FROM messages WHERE username_to=\"" +  session.getAttribute("username") + "\" ORDER BY time_sent DESC");
 		if (!rs.isBeforeFirst()) {
-			out.println("<p>No users matched your search terms :(</p>");
+			out.println("<p>You have no messages :(</p>");
 		} else {
 			rs.beforeFirst();
 			while (rs.next()) {
-				out.println("<p><a href=\"User.jsp?id=" + rs.getString("username") +"\">" + rs.getString("username") + "</p>");
+				String str = "<li>"+ rs.getString("message_type") + " from " + rs.getString("username_from") + ". ";
+				if (rs.getString("message_type").equals("Friend Request")) {
+					str += "<a href=\"ReadFriendRequest.jsp?id=" + rs.getString("username_from") + "\">Read</a>";
+				}
+				if (rs.getString("message_type").equals("Note")) {
+					str += "<a href=\"ReadNote.jsp?from=" + rs.getString("username_from") + "&dt="+ rs.getTimestamp("time_sent")+"\">Read</a>";
+				}
+				str += "</li>";
+				out.println(str);
 			}
 		}
 	%>
-</div>
-
-<div class="search_results">
-	<h1>Quiz Matches</h1>
-	<p>Coming Soon!</p>
-</div>
+</ul>
 </div>
 </body>
 </html>
